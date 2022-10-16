@@ -1,5 +1,4 @@
 from flask import Flask, request
-from careerjet_api_client import CareerjetAPIClient
 from flask_pymongo import PyMongo
 import json
 from flask_cors import CORS, cross_origin
