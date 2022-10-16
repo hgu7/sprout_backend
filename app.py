@@ -27,6 +27,11 @@ mongo = PyMongo(app)
 
 cj  =  CareerjetAPIClient("en_US");
 
+@app.route("/")
+def index():
+    return "hello world"
+
+
 @app.route("/lookup", methods = ['POST'])
 def lookup():
 
