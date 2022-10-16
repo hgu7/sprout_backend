@@ -9,10 +9,9 @@ import os
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
 
-app = Flask(__name__)
 mongo_password = os.environ.get("MONGO_PASSWORD")
-app.config["MONGO_URI"] = f"mongodb+srv://sprout-user:{mongo_password}@cluster0.db8lg5b.mongodb.net/?retryWrites=true&w=majority"
-
+app = Flask(__name__)
+app.config["MONGO_URI"] = f"mongodb+srv://sprout-user:{mongo_password}@cluster0.db8lg5b.mongodb.net/db"
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
@@ -134,7 +133,7 @@ def match(mentee, email):
         mentee_phone = ""
         mentor_phone = ""
         if mentee:
-            new_profile = {}
+            new_profile = profile
             new_profile['matched'] = True
             new_profile['mentor_name'] = match_profile['name']
             new_profile['mentor_phone'] = match_profile['phoneNumber']
@@ -146,7 +145,7 @@ def match(mentee, email):
                 { "$set": new_profile}
             )
 
-            mentor_profile = {}
+            mentor_profile = match_profile
             mentor_profile['matched'] = True
             mentor_profile['mentee_name'] = profile['name']
             mentor_profile['mentee_phone'] = profile['phoneNumber']
@@ -164,7 +163,7 @@ def match(mentee, email):
             mentor_name = match_profile['name']
 
         else:
-            new_profile = {}
+            new_profile = profile
             new_profile['matched'] = True
             new_profile['mentee_name'] = match_profile['name']
             new_profile['mentee_phone'] = match_profile['phoneNumber']
@@ -176,7 +175,7 @@ def match(mentee, email):
                 { "$set": new_profile}
             )
 
-            mentee_profile = {}
+            mentee_profile = match_profile
             mentee_profile['matched'] = True
             mentee_profile['mentor_name'] = profile['name']
             mentee_profile['mentor_phone'] = profile['phoneNumber']
