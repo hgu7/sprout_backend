@@ -1,1 +1,1 @@
-web: gunicorn sprout:app
+web: gunicorn app:app
