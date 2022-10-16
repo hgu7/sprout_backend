@@ -25,43 +25,11 @@ client = Client(account_sid, auth_token)
 
 mongo = PyMongo(app)
 
-cj  =  CareerjetAPIClient("en_US");
 
 @app.route("/")
 def index():
     return "hello world"
 
-
-@app.route("/lookup", methods = ['POST'])
-def lookup():
-
-    content_type = request.headers.get('Content-Type')
-    if (content_type == 'application/json'):
-        data = request.json
-
-
-        location = 'college park, maryland'
-        keywords = ''
-        contract_period = ''
-
-
-        if 'location' in data.keys():
-            location = data['location']
-        
-        if 'keywords' in data.keys():
-            keywords = data['keywords']
-        
-        result_json = cj.search({
-                        'location'    : location,
-                        'keywords'    : keywords,
-                        'contractperiod': contract_period,
-                        'affid'       : '213e213hd12344552',
-                        'user_ip'     : '11.22.33.44',
-                        'url'         : 'http://www.example.com/jobsearch?q=python&l=london',
-                        'user_agent'  : 'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0'
-                      });
-
-    return result_json
 
 
 
